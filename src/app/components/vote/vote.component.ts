@@ -26,7 +26,7 @@ export class VoteComponent implements OnInit {
   K: number = 32;
   PictureID: number[] = [];
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
 
   async ngOnInit() {
     const HOST: string = 'http://localhost:4000';
@@ -51,7 +51,7 @@ export class VoteComponent implements OnInit {
 
   async vote(winnerPostId: number, loserPostId: number) {
     const URL = 'http://localhost:4000/facemash/vote';
-
+    
     try {
         const response = await axios.post(URL, { winnerPostId, loserPostId });
         console.log('Response data:', response.data);
@@ -109,4 +109,11 @@ updatePostScore(postArray: any[], updatedPost: { post_id: any; }, newRating: any
   //     console.error('Error fetching profile:', error);
   //   }
   // }
+  toProfile() {
+    this.router.navigate(['/profile']);
+  }
+
+  logout() {
+    this.router.navigate(['/']);
+  }
 }

@@ -18,7 +18,50 @@
 
   
   <body>
-    <!-- <div class="container">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col text-center">
+          <div style="background-color: white; padding: 1px; border-radius: 20px; width: 15%; margin-left: 42.5%; margin-top: 10px;">
+            <h3>TOP 10 VOTE</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col" *ngFor="let post of topPosts.slice(0, 5); let i = index" style="margin-bottom: 20px;">
+          <img [src]="post.picture" class="img-fluid" style="width: 240px; height: 240px;" [alt]="'Image ' + post.post_id">
+          <div style="background-color: white; padding: 8px; border-radius: 20px; width: 70%; margin-left: 25px; height: 20%;">
+            <h5 style="margin-left: 25px;">อันดับ {{ i + 1 }}</h5>
+            <h6>SCORE: {{ post.score }}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col" *ngFor="let post of topPosts.slice(5, 10); let i = index" style="margin-bottom: 20px;">
+          <img [src]="post.picture" class="img-fluid" style="width: 240px; height: 240px;" [alt]="'Image ' + post.post_id">
+          <div style="background-color: white; padding: 8px; border-radius: 20px; width: 70%; margin-left: 25px; height: 20%;">
+            <h5 style="margin-left: 25px;">อันดับ {{ i + 6 }}</h5>
+            <h6>SCORE: {{ post.score }}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+  </body>
+  
+   
+</html>
+
+
+
+
+ <!-- <div class="container">
       
       <div class="row justify-content-center">
         <div class="col text-center">
@@ -83,27 +126,3 @@
         </div>
       </div>
     </div> -->
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col text-center">
-          <div style="background-color: white; padding: 1px; border-radius: 20px; width: 15%; margin-left: 42.5%; margin-top: 10px;">
-            <h3>TOP 10 VOTE</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col" *ngFor="let post of topPosts" style="margin-bottom: 20px;">
-          <img [src]="post.picture" class="img-fluid" style="width: 250px; height: 250px;" [alt]="'Image ' + post.post_id">
-          <div style="background-color: white; padding: 8px; border-radius: 20px; width: 30%; margin-left: 25px; height: 20%;">
-            <h5 style="margin-left: 25px;">TOP 10 VOTE</h5>
-            <h6>SCORE: {{ post.score }}</h6>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-</body>  
-</html>
