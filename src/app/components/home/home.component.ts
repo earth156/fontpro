@@ -29,7 +29,7 @@ export class HomeComponent {
   }
 
   getTopPosts() {
-    this.httpClient.get<any[]>('hhttps://backpro-qj8e.vercel.app/facemash/top-posts')
+    this.httpClient.get<any[]>('https://backpro-qj8e.vercel.app/facemash/top-posts')
       .subscribe(
         (response) => {
           this.topPosts = response;
