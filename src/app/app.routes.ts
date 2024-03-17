@@ -6,7 +6,7 @@ import { VoteComponent } from './components/vote/vote.component';
 
 
 export const routes: Routes = [
-    {path : '',component : LoginComponent},
+    {path : '',component : HomeComponent},
     {path : 'signup',component : SignupComponent},
     {path : 'home', component : HomeComponent},
     {path : 'vote', component : VoteComponent}
