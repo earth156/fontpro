@@ -15,7 +15,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import Swal from 'sweetalert2'
 import { Subscription, interval, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
+import cors from "cors";
 @Component({
   selector: 'app-vote',
   standalone: true,
@@ -33,7 +33,7 @@ export class VoteComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
 
   async ngOnInit() {
-    const HOST: string = 'https://backpro-qj8e.vercel.app';
+    const HOST: string = 'https://backpro-xw1w.vercel.app';
     const url = `${HOST}/facemash/vote`;
     this.getCurrentDateTime(); // เรียกใช้งาน getCurrentDateTime() ใน ngOnInit()
     interval(1000)
@@ -64,7 +64,7 @@ export class VoteComponent implements OnInit, OnDestroy {
   }
 
   async vote(winnerPostId: number, loserPostId: number) {
-    const URL = 'https://backpro-qj8e.vercel.app/facemash/vote';
+    const URL = 'https://backpro-xw1w.vercel.app/facemash/vote';
     
     try {
         const response = await axios.post(URL, { winnerPostId, loserPostId });

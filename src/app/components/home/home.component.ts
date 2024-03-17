@@ -11,6 +11,7 @@ import { PostPostReq } from '../../model/Posts.post.req.js';
 import { CommonModule } from '@angular/common';
 import axios from 'axios';
 import { conn } from "../../../api/dbconnect";
+import cors from "cors";
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -29,7 +30,7 @@ export class HomeComponent {
   }
 
   getTopPosts() {
-    this.httpClient.get<any[]>('https://backpro-qj8e.vercel.app/facemash/top-posts')
+    this.httpClient.get<any[]>('https://backpro-xw1w.vercel.app/facemash/top-posts')
       .subscribe(
         (response) => {
           this.topPosts = response;
