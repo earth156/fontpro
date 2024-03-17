@@ -21,7 +21,7 @@ export class LoginComponent {
   constructor(private router: Router, private httpClient: HttpClient) {}
 
   async checklogin(email: string, password: string) {
-    const HOST: string = "http://localhost:4000";
+    const HOST: string = "https://backpro-qj8e.vercel.app";
     const url = `${HOST}/facemash/signin/`; // Fixing string template
 
     const data = {
