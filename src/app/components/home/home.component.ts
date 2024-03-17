@@ -29,7 +29,7 @@ export class HomeComponent {
   }
 
   getTopPosts() {
-    this.httpClient.get<any[]>('http://localhost:4000/facemash/top-posts/')
+    this.httpClient.get<any[]>('http://localhost:4000/facemash/top-posts')
       .subscribe(
         (response) => {
           this.topPosts = response;
@@ -40,7 +40,9 @@ export class HomeComponent {
         }
       );
   }
-
+  tovote() {
+      this.router.navigate(['/vote']);
+  }
   toprofile() {
     this.router.navigate(['/']);
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , OnDestroy } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,6 +13,8 @@ import { conn } from "../../../api/dbconnect";
 import { ActivatedRoute } from '@angular/router';
 import {MatChipsModule} from '@angular/material/chips';
 import Swal from 'sweetalert2'
+import { Subscription, interval, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-vote',
@@ -21,16 +23,24 @@ import Swal from 'sweetalert2'
   templateUrl: './vote.component.html',
   styleUrl: './vote.component.scss'
 })
-export class VoteComponent implements OnInit {
+export class VoteComponent implements OnInit, OnDestroy {
   show: PostPostReq[] = [];
   K: number = 32;
   PictureID: number[] = [];
+  currentDate: string = ''; // กำหนดค่าเริ่มต้นเป็น string
+  private destroy$: Subject<void> = new Subject(); // เพื่อยกเลิกการทำงานของ interval อย่างถูกต้อง
 
   constructor(private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
 
   async ngOnInit() {
     const HOST: string = 'http://localhost:4000';
     const url = `${HOST}/facemash/vote`;
+    this.getCurrentDateTime(); // เรียกใช้งาน getCurrentDateTime() ใน ngOnInit()
+    interval(1000)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.getCurrentDateTime(); // เรียกใช้งาน getCurrentDateTime() ทุกๆ 1 วินาที
+      });
   
     try {
       const response = await axios.get(url);
@@ -47,7 +57,11 @@ export class VoteComponent implements OnInit {
     }
   }
 
-
+  async ngOnDestroy() {
+    // ยกเลิกการทำงานของ interval เมื่อ component ถูกทำลาย
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   async vote(winnerPostId: number, loserPostId: number) {
     const URL = 'http://localhost:4000/facemash/vote';
@@ -69,46 +83,33 @@ export class VoteComponent implements OnInit {
     }
 }
 
-
-updatePostScore(postArray: any[], updatedPost: { post_id: any; }, newRating: any) {
-  const postIndex = postArray.findIndex(post => post.post_id === updatedPost.post_id);
-
-  if (postIndex !== -1) {
-      const oldScore = postArray[postIndex].score;
-      postArray[postIndex].score = newRating;
-
-      console.log(`Post ID: ${updatedPost.post_id}, Old Score: ${oldScore}, New Score: ${newRating}`)
-      
-      // แสดง Swal.fire เฉพาะ Post ID ที่ชนะ
-      if (newRating > oldScore) {
-          Swal.fire({
-            title: `You Vote Post ID: ${updatedPost.post_id}`,
-            text: `Old Score: ${oldScore}, New Score: ${newRating}`,
-            icon: "success"
-          }).then(() => {
-            // รีโหลดหน้าเว็บเมื่อกด OK
-            // window.location.reload();
-          });
-      }
+  updatePostScore(postArray: any[], updatedPost: { post_id: any; }, newRating: any) {
+    const postIndex = postArray.findIndex(post => post.post_id === updatedPost.post_id);
+  
+    if (postIndex !== -1) {
+        const oldScore = postArray[postIndex].score;
+        postArray[postIndex].score = newRating;
+  
+        console.log(`Post ID: ${updatedPost.post_id}, Old Score: ${oldScore}, New Score: ${newRating}`)
+        
+        // แสดง Swal.fire เฉพาะ Post ID ที่ชนะ
+        if (newRating > oldScore) {
+            Swal.fire({
+              title: `You Vote Post ID: ${updatedPost.post_id}`,
+              text: `Old Score: ${oldScore}, New Score: ${newRating}`,
+              icon: "success"
+            }).then(() => {
+              // รีโหลดหน้าเว็บเมื่อกด OK
+              // window.location.reload();
+            });
+        }
+    }
   }
-}
 
-
-  // async profile(userId: number) {
-  //   const HOST: string = 'http://localhost:4000';
-  //   const url = `${HOST}/facemash/profile`;
-
-
-  //   // Load user profile data
-  //   try {
-  //     const response = await axios.get(url, { params: { userId } });
-  //     const userProfile = response.data;
-
-  //     // Use the loaded profile data as needed
-  //   } catch (error) {
-  //     console.error('Error fetching profile:', error);
-  //   }
-  // }
+  getCurrentDateTime() {
+    const currentDate = new Date();
+    this.currentDate = currentDate.toLocaleString();
+  }
   toProfile() {
     this.router.navigate(['/profile']);
   }
