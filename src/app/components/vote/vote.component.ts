@@ -33,7 +33,7 @@ export class VoteComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
 
   async ngOnInit() {
-    const HOST: string = 'https://backpro-xw1w.vercel.app';
+    const HOST: string = 'http://localhost:4000';
     const url = `${HOST}/facemash/vote`;
     this.getCurrentDateTime(); // เรียกใช้งาน getCurrentDateTime() ใน ngOnInit()
     interval(1000)
@@ -64,7 +64,7 @@ export class VoteComponent implements OnInit, OnDestroy {
   }
 
   async vote(winnerPostId: number, loserPostId: number) {
-    const URL = 'https://backpro-xw1w.vercel.app/facemash/vote';
+    const URL = 'http://localhost:4000/facemash/vote';
     
     try {
         const response = await axios.post(URL, { winnerPostId, loserPostId });
