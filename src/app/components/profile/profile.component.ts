@@ -72,4 +72,10 @@ export class ProfileComponent {
   logout() {
     this.router.navigate(['/']);
   }
+
+  // เพิ่มเมทอดใหม่
+goToGraph(pictureUrl: string) {
+  // ส่งค่า URL ของภาพไปยังหน้า graph
+  this.router.navigate(['/graph'], { queryParams: { picture_url: pictureUrl } });
+}
 }

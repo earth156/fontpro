@@ -6,7 +6,7 @@ import { VoteComponent } from './components/vote/vote.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { EditComponent } from './components/edit/edit.component';
 import { UploadComponent } from './components/upload/upload.component';
-
+import { GraphComponent } from './components/graph/graph.component';
 export const routes: Routes = [
     { path: '', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
@@ -14,5 +14,7 @@ export const routes: Routes = [
     { path: 'vote', component: VoteComponent },
     { path: 'profile', component: ProfileComponent },
     { path: 'edit', component: EditComponent },
-    { path: 'upload', component: UploadComponent }
+    { path: 'upload', component: UploadComponent },
+    { path: 'graph', component: GraphComponent},
+
 ];

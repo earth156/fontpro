@@ -8,6 +8,7 @@ import { VoteComponent } from './components/vote/vote.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { EditComponent } from './components/edit/edit.component';
 import { UploadComponent } from './components/upload/upload.component';
+import { AdminComponent } from './components/admin/admin.component';
 @Component({
     selector: 'app-root',
     standalone: true,
@@ -15,7 +16,7 @@ import { UploadComponent } from './components/upload/upload.component';
     styleUrl: './app.component.scss',
     imports: [CommonModule, RouterOutlet, SignupComponent, LoginComponent,
     HomeComponent,VoteComponent,ProfileComponent,EditComponent,
-  UploadComponent]
+  UploadComponent,AdminComponent]
 })
 export class AppComponent {
   title = 'projectFinal';
