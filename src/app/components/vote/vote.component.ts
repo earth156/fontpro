@@ -76,12 +76,50 @@ export class VoteComponent implements OnInit, OnDestroy {
             this.updatePostScore(this.show, updatedWinner, updatedEloRatingWinner.newRating);
             this.updatePostScore(this.show, updatedLoser, updatedEloRatingLoser.newRating);
            
+            // คำนวณคะแนน Elo Rating ของผู้ชนะ
+            const winnerOldRating = updatedEloRatingWinner.oldRating;
+            const winnerNewRating = updatedEloRatingWinner.newRating;
+            const winnerDelta = winnerNewRating - winnerOldRating;
+            const winnerMessage = `ผู้ชนะ Post ID: ${updatedWinner.post_id}, คะแนนเก่า: ${winnerOldRating}, คะแนนใหม่: ${winnerNewRating}, คะแนนที่ได้: ${winnerDelta}`;
+            const loserOldRating = updatedEloRatingLoser.oldRating;
+            const loserNewRating = updatedEloRatingLoser.newRating;
+            const loserDelta = loserNewRating - loserOldRating;
+            const loserMessage = `ผู้แพ้ Post ID: ${updatedLoser.post_id}, คะแนนเก่า: ${loserOldRating}, คะแนนใหม่: ${loserNewRating}, คะแนนที่ได้: ${loserDelta}`;
+            // แสดงข้อความเมื่อมีการเสียงโหวตเสร็จสมบูรณ์
+            const winnerCalculation = `วิธีการคำนวณคะแนนผู้ชนะ: นำคะแนนเก่าของผู้ชนะ (${winnerOldRating}) บวกกับ ${this.K} คูณ (1 - ความน่าจะเป็นที่ผู้ชนะ)`;
+            const loserCalculation = `วิธีการคำนวณคะแนนผู้แพ้: นำคะแนนเก่าของผู้แพ้ (${loserOldRating}) บวกกับ ${this.K} คูณ (0 - ความน่าจะเป็นที่ผู้ชนะ)`;
+            const finalMessage = `${winnerMessage}<br>${winnerCalculation}<br><br>${loserMessage}<br>${loserCalculation}`;
+            let updatedScore = winnerDelta; // คะแนนที่คำนวณได้
+            let updatedScoreText = `(${updatedScore > 0 ? '+' : ''}${updatedScore})`;
+            let calculationMessage = `วิธีการคำนวณคะแนนผู้ชนะ: นำคะแนนเก่าของผู้ชนะ (${updatedEloRatingWinner.oldRating}) `;
+            calculationMessage += `เพิ่มหรือลดด้วยคะแนนที่คำนวณได้ ${updatedScoreText}`;
+
+            Swal.fire({
+                title: 'โหวตสำเร็จ!',
+                html: finalMessage,
+                icon: 'success'
+            });
         } else {
+            // แสดงข้อความเมื่อมีข้อผิดพลาด
+            Swal.fire({
+                title: 'เกิดข้อผิดพลาด!',
+                text: 'ไม่สามารถบันทึกโหวตได้',
+                icon: 'error'
+            });
         }
     } catch (error) {
         console.error('Error processing vote:', error);
+        // แสดงข้อความเมื่อมีข้อผิดพลาด
+        Swal.fire({
+            title: 'เกิดข้อผิดพลาด!',
+            text: 'ไม่สามารถบันทึกโหวตได้',
+            icon: 'error'
+        });
     }
 }
+
+
+
 
   updatePostScore(postArray: any[], updatedPost: { post_id: any; }, newRating: any) {
     const postIndex = postArray.findIndex(post => post.post_id === updatedPost.post_id);

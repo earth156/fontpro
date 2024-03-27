@@ -11,8 +11,8 @@
     <mat-toolbar>
       <span style="color: chartreuse;">Rickmash</span>
       <div style="flex-grow: 1"></div> <!-- สร้างพื้นที่เพิ่มเติมให้ปุ่มต่อทางขวา -->
-      <button (click)="tovote()" style="background-color: rgb(241, 135, 6); color: black; margin-left: 10px;" mat-flat-button>VOTE</button>
-      <button (click)="toprofile()" style="background-color: rgb(255, 255, 255); color: black; margin-left: 10px;" mat-flat-button>Profile</button>
+      <!-- <button (click)="tovote()" style="background-color: rgb(241, 135, 6); color: black; margin-left: 10px;" mat-flat-button>VOTE</button> -->
+      <button (click)="toProfile(userId)" style="background-color: rgb(255, 255, 255); color: black; margin-left: 10px;" mat-flat-button>Profile</button>
       <button (click)="logout()" style="background-color: rgb(255, 255, 255); color: black; margin-left: 10px;" mat-flat-button>Logout</button>
       
     </mat-toolbar>
@@ -32,29 +32,34 @@
       </div>
     </div>
   
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col" *ngFor="let post of topPosts.slice(0, 5); let i = index" style="margin-bottom: 20px;">
-          <img [src]="post.picture" class="img-fluid" style="width: 240px; height: 240px;" [alt]="'Image ' + post.post_id">
-          <div style="background-color: white; padding: 8px; border-radius: 20px; width: 70%; margin-left: 25px; height: 20%;">
-            <h5 style="margin-left: 25px;">อันดับ {{ i + 1 }} </h5>
-            <h6>SCORE: {{ post.score }}</h6>
-          </div>
-        </div>
+<!-- แสดงโพสต์ที่ได้รับคะแนนสูงสุด (top 10) -->
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col" *ngFor="let post of topPosts.slice(0, 5); let i = index" style="margin-bottom: 20px;">
+      <img [src]="post.picture" class="img-fluid" style="width: 240px; height: 240px;" [alt]="'Image ' + post.post_id">
+      <div style="background-color: white; padding: 8px; border-radius: 20px; width: 70%; margin-left: 25px; height: 20%;">
+        <h5 style="margin-left: 25px;">อันดับ {{ i + 1 }} </h5>
+        <h6>SCORE: {{ post.score }}</h6>
+        <!-- <h6>RANK: {{ rankData[i]?.rank }}</h6>  -->
       </div>
     </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col" *ngFor="let post of topPosts.slice(5, 10); let i = index" style="margin-bottom: 20px;">
+      <img [src]="post.picture" class="img-fluid" style="width: 240px; height: 240px;" [alt]="'Image ' + post.post_id">
+      <div style="background-color: white; padding: 8px; border-radius: 20px; width: 70%; margin-left: 25px; height: 20%;">
+        <h5 style="margin-left: 25px;">อันดับ {{ i + 6 }}</h5>
+        <h6>SCORE: {{ post.score }}</h6>
+        <!-- <h6>RANK: {{ rankData[i + 5]?.rank }}</h6>  -->
+      </div>
+    </div>
+  </div>
+</div>
+
     
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col" *ngFor="let post of topPosts.slice(5, 10); let i = index" style="margin-bottom: 20px;">
-          <img [src]="post.picture" class="img-fluid" style="width: 240px; height: 240px;" [alt]="'Image ' + post.post_id">
-          <div style="background-color: white; padding: 8px; border-radius: 20px; width: 70%; margin-left: 25px; height: 20%;">
-            <h5 style="margin-left: 25px;">อันดับ {{ i + 6 }}</h5>
-            <h6>SCORE: {{ post.score }}</h6>
-          </div>
-        </div>
-      </div>
-    </div>
     
     
   </body>

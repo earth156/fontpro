@@ -11,4 +11,5 @@ export interface PostPostReq {
     email: string;
     password: string;
     user_type: string;
+    profile: string| null;
   }
