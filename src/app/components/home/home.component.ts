@@ -47,8 +47,8 @@ export class HomeComponent {
   }
 
 
-  tovote() {
-    this.router.navigate(['/vote']);
+  tovote(userId: string) {
+    this.router.navigate(['/vote'], { queryParams: { user_id: userId } });
   }
 
   toProfile(userId: string) {

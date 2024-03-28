@@ -78,4 +78,7 @@ goToGraph(post_id: string) {
   // ส่งค่า URL ของภาพไปยังหน้า graph
   this.router.navigate(['/graph'], { queryParams: { post_id: post_id } });
 }
+check(userId: string) {
+  this.router.navigate(['/home'] ,{ queryParams: { user_id: userId } });
+}
 }

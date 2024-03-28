@@ -1,6 +1,7 @@
 <mat-toolbar>
     <span style="color: chartreuse;">Rickmash</span>
     <div style="flex-grow: 1"></div> <!-- สร้างพื้นที่เพิ่มเติมให้ปุ่มต่อทางขวา -->
+    <button style="margin-top: 10px; margin-left: 5px;"style="background-color: rgb(255, 255, 255); color: black; margin-left: 10px;" mat-flat-button (click)="check(userId)">Home</button>
     <button (click)="toProfile()" style="background-color: rgb(255, 255, 255); color: black; margin-left: 10px;" mat-flat-button>Profile</button>
     <button (click)="logout()" style="background-color: rgb(255, 255, 255); color: black; margin-left: 10px;" mat-flat-button>Logout</button>
 </mat-toolbar>
@@ -26,5 +27,5 @@
         </div>
       </div>
     </div>
-    
+
   </body>
