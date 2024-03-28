@@ -34,7 +34,7 @@ export class HomeComponent {
   }
   
   getTopPosts() {
-    this.httpClient.get<any[]>('http://localhost:4000/facemash/top-post')
+    this.httpClient.get<any[]>('https://backpro-4.onrender.com/facemash/top-post')
       .subscribe(
         (response) => {
           this.topPosts = response;

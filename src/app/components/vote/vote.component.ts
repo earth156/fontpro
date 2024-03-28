@@ -33,7 +33,7 @@ export class VoteComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
 
   async ngOnInit() {
-    const HOST: string = 'http://localhost:4000';
+    const HOST: string = 'https://backpro-4.onrender.com';
     const url = `${HOST}/facemash/vote`;
     this.getCurrentDateTime(); // เรียกใช้งาน getCurrentDateTime() ใน ngOnInit()
     interval(1000)

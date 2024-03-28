@@ -40,7 +40,7 @@ export class SignupComponent {
     const password = this.password;
     // const typeUser = this.type_user; // Get the value of type_user
 
-    const url = 'http://localhost:4000/facemash/signup/';
+    const url = 'https://backpro-4.onrender.com/facemash/signup/';
 
     const userData = {
       first_name: firstName,

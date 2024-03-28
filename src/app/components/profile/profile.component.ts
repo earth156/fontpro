@@ -38,7 +38,7 @@ export class ProfileComponent {
       return; // ออกจากเมทอดถ้า user_id เป็น undefined หรือว่างเปล่า
     }
   
-    this.httpClient.get(`http://localhost:4000/facemash/profile/${id}`).subscribe(
+    this.httpClient.get(`https://backpro-4.onrender.com/facemash/profile/${id}`).subscribe(
       (data: any) => {
         this.pictureData = data;
       },
