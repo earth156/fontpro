@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
-import { Router,NavigationEnd} from '@angular/router';
+import { Router,NavigationEnd,ActivatedRoute} from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { HttpClientModule } from '@angular/common/http';
-
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Subscription } from 'rxjs';
+import { Chart } from 'chart.js';
 
 
 @Component({
@@ -19,59 +20,116 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrl: './graph.component.scss'
 })
 export class GraphComponent  {
-  currentDate: string = ''; // กำหนดค่าเริ่มต้นเป็น string
-  
-  constructor(private router: Router) {}
-  chartOptions = {
-    title: {
-        text: "ชื่อภาพนะเพื่อน"//ฮี๊ฮี
-    },
-    animationEnabled: true,
-    axisX:{      
-        interval: 10,
-        intervalType: "day",
-        valueFormatString: "D MMM",
-        labelFontColor: "rgb(0,75,141)",
-        minimum: new Date(2012, 6, 10)
-    },
-    axisY: {
-        title: "",
-        interlacedColor: "#EBF2FA",
-        tickColor: "azure",
-        titleFontColor: "#4f81bc",
-        valueFormatString: "#M,,."
-    },
-    data: [{ 
-        name: 'views',
-        type: "area",
-        markerSize: 8,
-        dataPoints: [
-            { x: new Date(2012, 6, 15), y: 0,  indexLabel: "Release", indexLabelFontColor: "orangered", markerColor: "orangered"},       
-            { x: new Date(2012, 6, 18), y: 2000000 }, 
-            { x: new Date(2012, 6, 23), y: 6000000 }, 
-            { x: new Date(2012, 7, 1), y: 10000000, indexLabel:"10M"}, 
-            { x: new Date(2012, 7, 11), y: 21000000 }, 
-            { x: new Date(2012, 7, 23), y: 50000000 }, 
-            { x: new Date(2012, 7, 31), y: 75000000  }, 
-            { x: new Date(2012, 8, 4), y: 100000000, indexLabel:"100M" },
-            { x: new Date(2012, 8, 10), y: 125000000 },
-            { x: new Date(2012, 8, 13), y: 150000000},	
-            { x: new Date(2012, 8, 16), y: 175000000},	
-            { x: new Date(2012, 8, 18), y: 200000000, indexLabel:"200M"},	
-            { x: new Date(2012, 8, 21), y: 225000000},	
-            { x: new Date(2012, 8, 24), y: 250000000},	
-            { x: new Date(2012, 8, 26), y: 275000000},	
-            { x: new Date(2012, 8, 28), y: 302000000, indexLabel:"300M"}	
-        ]
-    }]
-}
-toProfile() {
-  this.router.navigate(['/profile']);
+  chart: any;
+  chartData: any[] = [];
+  dataDate: any[] = [];
+  dataLine: any[] = [];
+  private chartSubscription: Subscription; // เพิ่มประกาศประเภทของตัวแปรนี้
+
+  posts: any;
+  post_id: any;
+  user_id: any;
+  picture: string = '';
+  first_name: string = '';
+  last_name: string = '';
+  user_type: string = '';
+  admin_id: any;
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private httpClient: HttpClient
+  ) {
+    this.chartSubscription = new Subscription();
+  }
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.admin_id = params['admin_id'];
+      this.user_id = params['user_id'];
+      this.user_type = params['user_type'];
+      const post_id = params['post_id'];
+      console.log('post_id: ', post_id);
+
+      this.fetchGraphData(post_id);
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.chart) {
+      this.chart.destroy();
+    }
+    if (this.chartSubscription) {
+      this.chartSubscription.unsubscribe();
+    }
+  }
+
+  fetchGraphData(post_id: string): void {
+    const url = 'http://localhost:4000/facemash/graph/select-post';
+
+    this.chartSubscription = this.httpClient
+      .post<any[]>(url, { post_id })
+      .subscribe(
+        (data: any[]) => {
+          this.chartData = data;
+          this.picture = data[0].picture;
+          this.first_name = data[0].first_name;
+          this.last_name = data[0].last_name;
+          this.post_id = data[0].post_id;
+          console.log(this.chartData);
+          this.renderGraph();
+        },
+        (error) => {
+          console.error('Error fetching graph data:', error);
+        }
+      );
+  }
+
+  renderGraph(): void {
+    if (!this.chartData || this.chartData.length === 0) {
+      console.error('No data available to render the graph');
+      return;
+    }
+
+    const labels = this.chartData.map((item) => item.vote_date);
+    const datasets = [
+      {
+        label: `Post ${this.chartData[0].post_id}`,
+        data: this.chartData.map((item) => item.newRating),
+        borderColor: '#' + (Math.random().toString(16) + '000000').substring(2, 8),
+        fill: false,
+      },
+    ];
+
+    this.chart = new Chart('myChart', {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: datasets,
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: true,
+            position: 'bottom',
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  }
+
+  toProfile() {
+    this.router.navigate(['/profile']);
+  }
+
+  logout() {
+    this.router.navigate(['/']);
+  }
 }
 
-logout() {
-  this.router.navigate(['/']);
-}
 
-
-} 

@@ -9,6 +9,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { EditComponent } from './components/edit/edit.component';
 import { UploadComponent } from './components/upload/upload.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { GraphComponent } from './components/graph/graph.component';
 @Component({
     selector: 'app-root',
     standalone: true,
@@ -16,7 +17,7 @@ import { AdminComponent } from './components/admin/admin.component';
     styleUrl: './app.component.scss',
     imports: [CommonModule, RouterOutlet, SignupComponent, LoginComponent,
     HomeComponent,VoteComponent,ProfileComponent,EditComponent,
-  UploadComponent,AdminComponent]
+  UploadComponent,AdminComponent,GraphComponent]
 })
 export class AppComponent {
   title = 'projectFinal';

@@ -4,7 +4,7 @@ import {
   MatRippleLoader,
   MatRippleModule,
   Platform
-} from "./chunk-IZ3PRPXD.js";
+} from "./chunk-F5BR2LUX.js";
 import "./chunk-7M6LPWTY.js";
 import {
   ANIMATION_MODULE_TYPE,
@@ -42,8 +42,8 @@ import {
   ɵɵprojection,
   ɵɵprojectionDef
 } from "./chunk-GGFIZMT2.js";
-import "./chunk-SG3BCSKH.js";
 import "./chunk-SAVXX6OM.js";
+import "./chunk-SG3BCSKH.js";
 import "./chunk-PQ7O3X3G.js";
 import {
   __spreadProps,

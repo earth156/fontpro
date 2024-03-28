@@ -7,6 +7,9 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { EditComponent } from './components/edit/edit.component';
 import { UploadComponent } from './components/upload/upload.component';
 import { GraphComponent } from './components/graph/graph.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { AdminviewProfileComponent } from './components/adminview-profile/adminview-profile.component';
+
 export const routes: Routes = [
     { path: '', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
@@ -16,5 +19,7 @@ export const routes: Routes = [
     { path: 'edit', component: EditComponent },
     { path: 'upload', component: UploadComponent },
     { path: 'graph', component: GraphComponent},
+    { path: 'admin-homepage', component: AdminComponent},
+    { path: 'adminView-profile', component: AdminviewProfileComponent},
 
 ];

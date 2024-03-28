@@ -41,16 +41,23 @@ export class AdminComponent {
 
 
 
+  toProfileuser(user_id:string) {
+    this.router.navigate(['/adminView-profile'],  { queryParams: { user_id: user_id } });
+
+  }
+  // toProfileuser() {
+  //   this.router.navigate(['/adminView-profile']);
+  // }
+  toPicture(user_id: string) {
+    this.router.navigate(['/adminView-profile'],  { queryParams: { user_id: user_id } });
+  }
   toProfile() {
-    this.router.navigate(['/adminView-profile']);
+    this.router.navigate(['/profile']);
   }
-  toPicture() {
-    this.router.navigate(['/adminView-picture']);
-  }
+
+
 
   logout() {
     this.router.navigate(['/']);
   }
-
-
 }
