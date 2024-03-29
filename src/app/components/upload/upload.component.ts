@@ -20,7 +20,7 @@ import { PostPostReq } from '../../model/Posts.post.req.js';
 export class UploadComponent {
   userId: string = '';
   picture: string = '';
-  pictureData: PostPostReq[] = []; // ประกาศ property 'pictureData'
+  // pictureData: PostPostReq[] = []; // ประกาศ property 'pictureData'
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -36,6 +36,7 @@ export class UploadComponent {
     });
   }
   
+  
 
 
   uploadProfilePicture(userId: string) {
@@ -50,7 +51,6 @@ export class UploadComponent {
     };
   
     this.httpClient.post<any>(`https://backpro-4.onrender.com/facemash/upload/${userId}`, userData)
-
       .subscribe((response: any) => {
         console.log('ภาพโปรไฟล์ได้รับการเพิ่มเรียบร้อยแล้ว:', response);
         // ทำสิ่งที่คุณต้องการหลังจากการเพิ่มภาพโปรไฟล์เสร็จสมบูรณ์
@@ -59,79 +59,7 @@ export class UploadComponent {
       });
   }
 
-  // deletePicture(postId: string) {
-  //   this.httpClient.delete(`https://backpro-4.onrender.com/facemash/post/${postId}`)
-  //     .subscribe(() => {
-  //       console.log('Picture deleted successfully');
-  //       // Do something after deleting the picture successfully
-  //     }, (error: any) => {
-  //       console.error('Error deleting picture:', error);
-  //     });
-  // }
-  
-
   check(userId: string) {
     this.router.navigate(['/profile'], { queryParams: { user_id: userId } });
   }
 }
-  
-
-  // fetchUserPictures(userId: string) {
-  //   try {
-  //     // เรียกใช้ API เพื่อดึงข้อมูลภาพ
-  //     this.httpClient.get<PostPostReq[]>(`http://localhost:4000/facemash/user/${userId}`)
-  //       .toPromise()
-  //       .then(response => {
-  //         if (response && response.length > 0) {
-  //           if (response.length > 4) {
-  //             console.log('มีรูปภาพมากเกินไปที่จะแทรก');
-  //           } else {
-  //             this.pictureData = response.map(item => ({
-  //               post_id: item.post_id,
-  //               user_id: item.user_id,
-  //               score: item.score,
-  //               time: item.time,
-  //               picture: item.picture,
-  //               first_name: item.first_name,
-  //               last_name: item.last_name,
-  //               icon: item.icon,
-  //               email: item.email,
-  //               password: item.password,
-  //               user_type: item.user_type,
-  //               profile: item.profile
-  //             }));
-              
-  //             console.log('แทรกรูปภาพเรียบร้อยแล้ว:', this.pictureData);
-  //           }
-  //         } else {
-  //           console.log('ไม่พบรูปภาพสำหรับผู้ใช้นี้');
-  //         }
-  //       })
-  //       .catch(error => {
-  //         console.error('ไม่สามารถดึงรูปภาพของผู้ใช้ได้:', error);
-  //       });
-  //   } catch (error) {
-  //     console.error('ไม่สามารถดึงรูปภาพของผู้ใช้ได้:', error);
-  //   }
-  // }
-
-  
-
-  // async onUpload() {
-  //   try {
-  //     // ส่งข้อมูลไปยัง API โดยใช้เอพีไอเส้นที่ให้มา
-  //     const response = await this.httpClient.post<any>('http://localhost:4000/facemash/upload', {
-  //       id: this.userId,
-  //       picture: this.picture, // เลือกรูปภาพตามที่คุณต้องการ
-  //       time: new Date().toISOString() // เพิ่มเวลาปัจจุบัน
-  //     }).toPromise();
-  //     console.log('Uploaded successfully:', response);
-  //     // หลังจากอัปโหลดเสร็จสิ้น ทำสิ่งที่คุณต้องการได้ต่อไป
-  //   } catch (error) {
-  //     console.error('Upload failed:', error);
-  //   }
-  // }
-
-  // check() {
-  //   this.router.navigate(['/']);
-  // }
