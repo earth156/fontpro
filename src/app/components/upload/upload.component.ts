@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import axios from 'axios';
 import { PostPostReq } from '../../model/Posts.post.req.js';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-upload',
   standalone: true,
@@ -20,7 +21,7 @@ import { PostPostReq } from '../../model/Posts.post.req.js';
 export class UploadComponent {
   userId: string = '';
   picture: string = '';
-  // pictureData: PostPostReq[] = []; // ประกาศ property 'pictureData'
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -28,34 +29,40 @@ export class UploadComponent {
   ) {}
 
   ngOnInit(): void {
-    // Get userId from URL parameter
     this.route.queryParams.subscribe(params => {
       this.userId = params['user_id'];
-      console.log('Received user ID:', this.userId);
-      this.uploadProfilePicture(this.userId);
     });
   }
-  
-  
 
+  onFileSelected(event: any) {
+    const selectedFile = event.target.files[0];
+    this.picture = selectedFile;
+  }
 
   uploadProfilePicture(userId: string) {
-
     if (!this.picture) {
       console.error('ไม่มีรูปภาพที่จะอัปโหลด');
       return;
     }
   
-    const userData = {
-      picture: this.picture
-    };
+    const formData = new FormData();
+    formData.append('image', this.picture);
   
-    this.httpClient.post<any>(`https://backpro-4.onrender.com/facemash/upload/${userId}`, userData)
+    this.httpClient.post<any>(`https://backpro-4.onrender.com/facemash/upload/${userId}`, formData)
       .subscribe((response: any) => {
         console.log('ภาพโปรไฟล์ได้รับการเพิ่มเรียบร้อยแล้ว:', response);
-        // ทำสิ่งที่คุณต้องการหลังจากการเพิ่มภาพโปรไฟล์เสร็จสมบูรณ์
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'เพิ่มภาพสำเร็จ!'
+        });
       }, (error: any) => {
         console.error('เกิดข้อผิดพลาดในการเพิ่มภาพโปรไฟล์:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'เกิดข้อผิดพลาดในการเพิ่มภาพโปรไฟล์!'
+        });
       });
   }
 
