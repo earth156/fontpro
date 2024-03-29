@@ -29,18 +29,17 @@ export class UploadComponent {
 
   ngOnInit(): void {
     // Get userId from URL parameter
-    this.route.params.subscribe(params => {
-      this.userId = params['id'];
+    this.route.queryParams.subscribe(params => {
+      this.userId = params['user_id'];
+      console.log('Received user ID:', this.userId);
+      this.uploadProfilePicture(this.userId);
     });
   }
-
-  uploadProfilePicture() {
-    // ตรวจสอบว่ามีรูปภาพเกิน 5 รูปหรือไม่
-    if (this.pictureData.length >= 5) {
-      console.error('ไม่สามารถอัปโหลดรูปภาพเกิน 5 รูปได้');
-      return;
-    }
   
+
+
+  uploadProfilePicture(userId: string) {
+
     if (!this.picture) {
       console.error('ไม่มีรูปภาพที่จะอัปโหลด');
       return;
@@ -50,7 +49,8 @@ export class UploadComponent {
       picture: this.picture
     };
   
-    this.httpClient.post<any>(`http://localhost:4000/facemash/upload/${this.userId}`, userData)
+    this.httpClient.post<any>(`https://backpro-4.onrender.com/facemash/upload/${userId}`, userData)
+
       .subscribe((response: any) => {
         console.log('ภาพโปรไฟล์ได้รับการเพิ่มเรียบร้อยแล้ว:', response);
         // ทำสิ่งที่คุณต้องการหลังจากการเพิ่มภาพโปรไฟล์เสร็จสมบูรณ์
@@ -58,6 +58,16 @@ export class UploadComponent {
         console.error('เกิดข้อผิดพลาดในการเพิ่มภาพโปรไฟล์:', error);
       });
   }
+
+  // deletePicture(postId: string) {
+  //   this.httpClient.delete(`https://backpro-4.onrender.com/facemash/post/${postId}`)
+  //     .subscribe(() => {
+  //       console.log('Picture deleted successfully');
+  //       // Do something after deleting the picture successfully
+  //     }, (error: any) => {
+  //       console.error('Error deleting picture:', error);
+  //     });
+  // }
   
 
   check(userId: string) {

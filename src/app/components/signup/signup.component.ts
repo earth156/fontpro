@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import axios from 'axios';
 import { conn } from "../../../api/dbconnect";
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-signup',
@@ -38,18 +39,16 @@ export class SignupComponent {
     const lastName = this.lastName;
     const email = this.email;
     const password = this.password;
-    // const typeUser = this.type_user; // Get the value of type_user
-
+  
     const url = 'https://backpro-4.onrender.com/facemash/signup/';
-
+  
     const userData = {
       first_name: firstName,
       last_name: lastName,
       email: email,
-      password: password,
-      // type_user: typeUser // Add type_user field to userData
+      password: password
     };
-
+  
     this.httpClient.post(url, userData).subscribe(
       (response: any) => {
         console.log('User successfully signed up:', response);
@@ -58,13 +57,13 @@ export class SignupComponent {
         this.lastName = '';
         this.email = '';
         this.password = '';
-
-
-        // Open the registration success popup
+  
+        // Show signup success message using Swal.fire
+        Swal.fire('สมัครสำเร็จ', '', 'success');
       },
       (error: any) => {
         console.error('Error during signup:', error);
       }
     );
   }
-}
+}  

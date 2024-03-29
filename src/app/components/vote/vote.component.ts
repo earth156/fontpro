@@ -154,8 +154,8 @@ export class VoteComponent implements OnInit, OnDestroy {
     const currentDate = new Date();
     this.currentDate = currentDate.toLocaleString();
   }
-  toProfile() {
-    this.router.navigate(['/profile']);
+  toProfile(userId: string) {
+    this.router.navigate(['/profile'] ,{ queryParams: { user_id: userId } });
   }
 
   logout() {
