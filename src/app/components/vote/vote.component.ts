@@ -114,7 +114,7 @@ export class VoteComponent implements OnInit, OnDestroy {
                 icon: 'error'
             });
         }
-        window.location.reload();
+        // window.location.reload();
     } catch (error) {
         console.error('Error processing vote:', error);
         // แสดงข้อความเมื่อมีข้อผิดพลาด
@@ -141,9 +141,11 @@ export class VoteComponent implements OnInit, OnDestroy {
               title: `You Vote Post ID: ${updatedPost.post_id}`,
               text: `Old Score: ${oldScore}, New Score: ${newRating}`,
               icon: "success"
-            }).then(() => {
-              // รีโหลดหน้าเว็บเมื่อกด OK
-              // window.location.reload();
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // Reload the page after voting
+                window.location.reload();
+              }
             });
         }
     }
