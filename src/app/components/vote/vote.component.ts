@@ -105,6 +105,7 @@ export class VoteComponent implements OnInit, OnDestroy {
                 html: finalMessage,
                 icon: 'success'
             });
+            window.location.reload();
         } else {
             // แสดงข้อความเมื่อมีข้อผิดพลาด
             Swal.fire({
@@ -113,7 +114,6 @@ export class VoteComponent implements OnInit, OnDestroy {
                 icon: 'error'
             });
         }
-        window.location.reload();
     } catch (error) {
         console.error('Error processing vote:', error);
         // แสดงข้อความเมื่อมีข้อผิดพลาด
