@@ -124,9 +124,6 @@ export class VoteComponent implements OnInit, OnDestroy {
     }
 }
 
-
-
-
   updatePostScore(postArray: any[], updatedPost: { post_id: any; }, newRating: any) {
     const postIndex = postArray.findIndex(post => post.post_id === updatedPost.post_id);
   
@@ -155,8 +152,8 @@ export class VoteComponent implements OnInit, OnDestroy {
     this.currentDate = currentDate.toLocaleString();
   }
   toProfile(userId: string) {
-    this.router.navigate(['/profile'] ,{ queryParams: { user_id: userId } });
-  }
+    this.router.navigate(['/profile'], { queryParams: { user_id: userId } });
+  } 
 
   logout() {
     this.router.navigate(['/']);

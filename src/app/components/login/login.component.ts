@@ -9,15 +9,19 @@ import { UsersPostReq } from '../../model/users.post.req';
 import { CommonModule } from '@angular/common';
 import axios from 'axios';
 import { conn } from "../../../api/dbconnect";
+import { MatToolbarModule } from '@angular/material/toolbar';
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule, CommonModule, HttpClientModule],
+  imports: [MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule,
+     CommonModule, HttpClientModule,MatToolbarModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  userId: string = ''; // เพิ่มตัวแปร userId
   constructor(private router: Router, private httpClient: HttpClient) {}
 
   async checklogin(email: string, password: string) {
@@ -62,7 +66,17 @@ export class LoginComponent {
       throw error;
     }
   }
+  tovote(userId: string) {
+    this.router.navigate(['/vote'], { queryParams: { user_id: userId } });
+  }
 
+  toProfile(userId: string) {
+    this.router.navigate(['/profile'], { queryParams: { user_id: userId } });
+  } 
+  
+  logout() {
+    this.router.navigate(['/']);
+  }
   check() {
     this.router.navigate(['/signup']);
   }
