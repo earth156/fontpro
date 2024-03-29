@@ -135,19 +135,20 @@ export class VoteComponent implements OnInit, OnDestroy {
   
         console.log(`Post ID: ${updatedPost.post_id}, Old Score: ${oldScore}, New Score: ${newRating}`)
         
-        // แสดง Swal.fire เฉพาะ Post ID ที่ชนะ
-        if (newRating > oldScore) {
-            Swal.fire({
-              title: `You Vote Post ID: ${updatedPost.post_id}`,
-              text: `Old Score: ${oldScore}, New Score: ${newRating}`,
-              icon: "success"
-            }).then((result) => {
-              if (result.isConfirmed) {
-                // Reload the page after voting
-                window.location.reload();
-              }
-            });
-        }
+    // แสดง Swal.fire เฉพาะ Post ID ที่ชนะ
+    if (newRating > oldScore) {
+      Swal.fire({
+        title: `You Vote Post ID: ${updatedPost.post_id}`,
+        text: `Old Score: ${oldScore}, New Score: ${newRating}`,
+        icon: "success"
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // Reload the page after clicking OK
+              window.location.reload();
+          }
+      });
+    }
+
     }
   }
 
