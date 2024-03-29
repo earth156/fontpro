@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,7 +15,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ MatButtonModule, MatFormFieldModule, MatInputModule,
+  imports: [MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule,
      CommonModule, HttpClientModule,MatToolbarModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

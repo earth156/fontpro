@@ -5,9 +5,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PostPostReq } from '../../model/Posts.post.req.js';
 import { CommonModule } from '@angular/common';
-
+import axios from 'axios';
 import { conn } from "../../../api/dbconnect";
-
+import cors from "cors";
 
 
 @Component({
