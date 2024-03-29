@@ -2,7 +2,7 @@
   <span style="color: chartreuse;">Rickmash</span>
   <div style="flex-grow: 1"></div> <!-- สร้างพื้นที่เพิ่มเติมให้ปุ่มต่อทางขวา -->
   <button style="margin-top: 10px; margin-left: 5px;" style="background-color: rgb(255, 255, 255); color: black; margin-left: 10px;" mat-flat-button (click)="check(userId)">Home</button>
-  <button (click)="toProfile(userId)" style="background-color: rgb(255, 255, 255); color: black; margin-left: 10px;" mat-flat-button>Profile</button>
+  <button (click)="toProfile(userId)" *ngIf="userId" style="background-color: rgb(255, 255, 255); color: black; margin-left: 10px;" mat-flat-button>Profile</button>
   <button (click)="logout()" style="background-color: rgb(255, 255, 255); color: black; margin-left: 10px;" mat-flat-button>Logout</button>
 </mat-toolbar>
 <body>
@@ -16,8 +16,7 @@
         <div class="card-head">
           <span *ngIf="userId" style="background-color: white; font-size: 20px; margin-left: 50px;">name :  {{show[0].first_name}} {{show[0].last_name}}</span>
           <!-- เพิ่มปุ่ม "ดูโปรไฟล์" และใส่ลิงก์ไปยังหน้าโปรไฟล์โดยอ้างอิง user_id -->
-          <button (click)="toProfile(show[0].user_id.toString())" style="background-color: rgb(255, 221, 0); color: black; margin-left: 10px;">ดูโปรไฟล์</button>
-
+          <button (click)="toProfile(show[0].user_id.toString())" *ngIf="userId" style="background-color: rgb(255, 221, 0); color: black; margin-left: 10px;">ดูโปรไฟล์</button>
         </div>
         <img *ngIf="show[0].picture" [src]="show[0].picture" alt="Post Image" class="custom-image">
       </div>
@@ -26,11 +25,10 @@
         <div class="card-head">
           <span *ngIf="userId" style="background-color: white; width: 50px; font-size: 20px;" >name : {{show[1].first_name}} {{show[1].last_name}}</span>
           <!-- เพิ่มปุ่ม "ดูโปรไฟล์" และใส่ลิงก์ไปยังหน้าโปรไฟล์โดยอ้างอิง user_id -->
-          <button (click)="toProfile(show[1].user_id.toString())" style="background-color: rgb(255, 221, 0); color: black; margin-left: 10px;">ดูโปรไฟล์</button>
+          <button (click)="toProfile(show[1].user_id.toString())" *ngIf="userId" style="background-color: rgb(255, 221, 0); color: black; margin-left: 10px;">ดูโปรไฟล์</button>
         </div>
         <img *ngIf="show[1].picture" [src]="show[1].picture" alt="Post Image" class="custom-image">
       </div>
     </div>
   </div>
-
 </body>
